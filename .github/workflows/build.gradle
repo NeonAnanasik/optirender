@@ -1,0 +1,20 @@
+optirender/
+├─ build.gradle
+├─ settings.gradle
+├─ gradle.properties
+├─ gradle/wrapper/gradle-wrapper.properties
+└─ src/main/
+   ├─ java/dev/optirender/
+   │  ├─ OptiRenderClient.java
+   │  ├─ config/OptiRenderConfig.java
+   │  ├─ culling/OcclusionEngine.java
+   │  └─ mixin/
+   │     ├─ LevelExtractorMixin.java
+   │     ├─ EntityRenderDispatcherMixin.java
+   │     ├─ BlockEntityRenderDispatcherMixin.java
+   │     ├─ QuadParticleGroupMixin.java
+   │     ├─ LeavesBlockMixin.java
+   │     └─ DebugScreenOverlayMixin.java
+   └─ resources/
+      ├─ fabric.mod.json
+      └─ optirender.mixins.json
