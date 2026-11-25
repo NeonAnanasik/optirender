@@ -1,0 +1,41 @@
+plugins {
+    // Для необфусцированных версий (26.1+) используется именно этот id, без remap.
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+base { archivesName = project.archives_base_name }
+
+repositories {}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    // Строки mappings НЕТ: игра уже в официальных именах.
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    // Fabric API не требуется: мод использует только API лоадера + Mixin.
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") { expand "version": project.version }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 25
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+jar {
+    from("LICENSE") { rename { "${it}_${project.base.archivesName.get()}" } }
+}
+
+publishing {
+    publications { create("mavenJava", MavenPublication) { from components.java } }
+}
